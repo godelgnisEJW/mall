@@ -11,8 +11,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.mall.bean.Img;
 import com.mall.dao.ImgDao;
+import com.mall.model.Img;
 
 
 @RunWith(SpringRunner.class)

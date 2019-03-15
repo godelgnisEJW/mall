@@ -1,4 +1,4 @@
-package com.mall.bean;
+package com.mall.model;
 
 public class ShowImgMid {
 	//商品Id

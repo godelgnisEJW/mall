@@ -1,4 +1,4 @@
-package com.mall.bean;
+package com.mall.model;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -18,6 +18,7 @@ public class Feedback implements Serializable{
 	private Date fbTime;
 	//图片ID
 	private Integer imgId;
+	
 	//图片
 	private Img img;
 	

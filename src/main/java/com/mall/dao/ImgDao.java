@@ -1,5 +1,7 @@
 package com.mall.dao;
 
+import java.util.ArrayList;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -8,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import com.mall.bean.Img;
+import com.mall.model.Img;
 @Mapper
 public interface ImgDao {
 	/**
@@ -24,14 +26,14 @@ public interface ImgDao {
 	 * @return
 	 */
 	@Select("select * from img natural join show_img_mid where pro_id = #{pro_id}")
-	public Img selectByProId(@Param("pro_id")Integer proId);
+	public ArrayList<Img> selectByProId(@Param("pro_id")Integer proId);
 	/**
 	 * 根据上架号查询商品的详情图片
 	 * @param upperId
 	 * @return
 	 */
 	@Select("select * from img natural join detail_img_mid where upper_id = #{upper_id}")
-	public Img selectByUpperId(@Param("upper_id")Integer upperId);
+	public ArrayList<Img> selectByUpperId(@Param("upper_id")Integer upperId);
 	/**
 	 * 根据图片Id删除图片记录
 	 * @param imgId

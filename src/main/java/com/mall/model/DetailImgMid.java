@@ -1,10 +1,11 @@
-package com.mall.bean;
+package com.mall.model;
 
 public class DetailImgMid {
 	//上架ID
 	private Integer upperId;
 	//图片Id
 	private Integer imgId;
+	
 	
 	public Integer getUpperId() {
 		return upperId;

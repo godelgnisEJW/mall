@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mall.bean.Cart;
+import com.mall.model.Cart;
 import com.mall.service.CartService;
 
 @RestController

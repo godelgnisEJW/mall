@@ -1,4 +1,4 @@
-package com.mall.bean;
+package com.mall.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,6 +15,8 @@ public class Product implements Serializable {
 	
 	//商品详情图片
 	private ArrayList<Img> imges;
+	
+	private ArrayList<ProInfo> proInfoes;
 	
 	public ArrayList<Img> getImges() {
 		return imges;
