@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.mall.model.Order;
 
@@ -59,5 +60,19 @@ public interface OrderDao {
 	@Options(useGeneratedKeys = true, keyProperty = "orderNum", keyColumn = "order_num")
 	public int insertOrder(Order order);
 	
+	/**
+	 * 更新订单支付标志
+	 * @param isPayed
+	 * @param orderNum
+	 */
+	@Update("update order set is_payed = #{is_payed} where order_num = #{order_num}")
+	public void updateIsPayed(@Param("is_payed")Boolean isPayed, @Param("order_num")Integer orderNum);
 	
+	/**
+	 * 更新订单签收标志
+	 * @param isSigned
+	 * @param orderNum
+	 */
+	@Update("update order set is_signed = #{is_signed} where order_num = #{order_num}")
+	public void updateIsSigned(@Param("is_signed")Boolean isSigned, @Param("order_num")Integer orderNum);
 }
