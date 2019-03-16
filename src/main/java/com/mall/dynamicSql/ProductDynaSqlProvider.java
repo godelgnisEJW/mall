@@ -4,6 +4,8 @@ import java.util.Map;
 
 import org.apache.ibatis.jdbc.SQL;
 
+import com.mall.model.Product;
+
 public class ProductDynaSqlProvider {
 	/**
 	 * 动态查询
@@ -25,27 +27,27 @@ public class ProductDynaSqlProvider {
 					WHERE(" category = #{category} ");
 				}
 				if (params.get("upperId") != null) {
-					WHERE(" upper_id = #{upper_id} ");
+					WHERE(" upper_id = #{upperId} ");
 				}
 			}
 		}.toString();
 	}
 	/**
 	 * 动态更新
-	 * @param params
+	 * @param product
 	 * @return
 	 */
-	public String updateWithParams(Map<String, Object> params) {
+	public String updateWithProduct(Product product) {
 		return new SQL() {
 			{
 				UPDATE("product");
-				if (params.get("title") != null) {
+				if (product.getTitle() != null) {
 					SET(" title = #{title} ");
 				}
-				if (params.get("brand") != null) {
+				if (product.getBrand() != null) {
 					SET(" brand = #{brand} ");
 				}
-				if (params.get("category") != null) {
+				if (product.getCategory() != null) {
 					SET(" category = #{category} ");
 				}
 			}
@@ -54,22 +56,23 @@ public class ProductDynaSqlProvider {
 	
 	/**
 	 * 动态插入
-	 * @param params
+	 * @param product
 	 * @return
 	 */
-	public String insertWithParams(Map<String, Object> params) {
+	public String insertWithProduct(Product product) {
 		return new SQL() {
 			{
-				INSERT_INTO("pro_info");
-				if (params.get("title") != null) {
+				INSERT_INTO("product");
+				if (product.getTitle() != null) {
 					VALUES("title", "#{title}");
 				}
-				if (params.get("brand") != null) {
+				if (product.getBrand() != null) {
 					VALUES("brand", "#{brand}");
 				}
-				if (params.get("category") != null) {
+				if (product.getCategory() != null) {
 					VALUES("category", "#{category}");
 				}
+				WHERE(" upper_id = #{upperId} ");
 			}
 		}.toString();
 	}

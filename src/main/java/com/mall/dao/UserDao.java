@@ -23,8 +23,8 @@ public interface UserDao {
 	 * @param userName
 	 * @return
 	 */
-	@Select("select * from user where user_name = #{user_name}")
-	public User selectByUserName(@Param("user_name")String userName);
+	@Select("select * from user where user_name = #{userName}")
+	public User selectByUserName(String userName);
 	
 	/**
 	 * 通过手机号码查询用户记录
@@ -32,7 +32,7 @@ public interface UserDao {
 	 * @return
 	 */
 	@Select("select * from user where phone = #{phone}")
-	public User selectByPhone(@Param("phone")String phone);
+	public User selectByPhone(String phone);
 	
 	/**
 	 * 查询所有的用户记录
@@ -46,8 +46,8 @@ public interface UserDao {
 	 * @param user
 	 * @return
 	 */
-	@Insert("insert into user(user_name, user_name, user_name, phone, mail)"
-			+ "values(#{user_name}, #{user_name}, #{user_name}, #{phone}, #{mail})")
+	@Insert("insert into user(user_name, password, user_type, phone, mail)"
+			+ "values(#{userName}, #{password}, #{userType}, #{phone}, #{mail})")
 	@Options(useGeneratedKeys = true, keyProperty = "userId", keyColumn = "user_id")
 	public int insertUser(User user);
 	
@@ -55,14 +55,14 @@ public interface UserDao {
 	 * 删除用户信息
 	 * @param userId 用户Id
 	 */
-	@Delete("delete * from user where user_id = #{user_id}")
-	public void delete(@Param("user_id")Integer userId);
+	@Delete("delete from user where user_id = #{userId}")
+	public void delete(Integer userId);
 	
 	/**
 	 * 修改用户信息
 	 * @param user
 	 */
-	@Update("update user set user_name = #{user_name}, password = #{password}, user_type = {user_type}, phone = #{phone}, mail = #{mail} where user_id = #{user_id}")
+	@Update("update user set user_name = #{userName}, password = #{password}, user_type = #{userType}, phone = #{phone}, mail = #{mail} where user_id = #{userId}")
 	public void update(User user);
 	
 	/**
@@ -71,21 +71,21 @@ public interface UserDao {
 	 * @return
 	 */
 	@SelectProvider(method = "selectWithParams", type = com.mall.dynamicSql.UserDynaSqlProvider.class)
-	public User selectWithParams(Map<String, Object> params);
+	public ArrayList<User> selectWithParams(Map<String, Object> params);
 	
 	/**
 	 * 动态更新
-	 * @param params
+	 * @param user
 	 * @return
 	 */
-	@UpdateProvider(method = "updateWithParams", type = com.mall.dynamicSql.UserDynaSqlProvider.class)
-	public User updateWithParams(Map<String, Object> params);
+	@UpdateProvider(method = "updateWithUser", type = com.mall.dynamicSql.UserDynaSqlProvider.class)
+	public void updateWithUser(User user);
 	
 	/**
 	 * 动态插入
-	 * @param params
+	 * @param user
 	 * @return
 	 */
-	@InsertProvider(method = "insertWithParams", type = com.mall.dynamicSql.UserDynaSqlProvider.class)
-	public User insertWithParams(Map<String, Object> params);
+	@InsertProvider(method = "insertWithUser", type = com.mall.dynamicSql.UserDynaSqlProvider.class)
+	public int insertWithUser(User user);
 }

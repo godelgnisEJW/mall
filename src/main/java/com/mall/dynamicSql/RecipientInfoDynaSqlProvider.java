@@ -4,6 +4,8 @@ import java.util.Map;
 
 import org.apache.ibatis.jdbc.SQL;
 
+import com.mall.model.RecipientInfo;
+
 public class RecipientInfoDynaSqlProvider {
 	
 	/**
@@ -11,36 +13,36 @@ public class RecipientInfoDynaSqlProvider {
 	 * @param params
 	 * @return
 	 */
-	public String updateWithParams(Map<String, Object> params) {
+	public String updateWithRecipientInfo(RecipientInfo recipientInfo) {
 		return new SQL() {
 			{
 				UPDATE("recipient_info");
-				if (params.get("province") != null) {
+				if (recipientInfo.getProvince() != null) {
 					SET(" province = #{province} ");
 				}
-				if (params.get("city") != null) {
+				if (recipientInfo.getCity() != null) {
 					SET(" city = #{city} ");
 				}
-				if (params.get("county") != null) {
+				if (recipientInfo.getCounty() != null) {
 					SET(" county = #{county} ");
 				}
-				if (params.get("detailAddress") != null) {
-					SET(" detail_address = #{detail_address} ");
+				if (recipientInfo.getDetailAddress() != null) {
+					SET(" detail_address = #{detailAddress} ");
 				}
-				if (params.get("name") != null) {
+				if (recipientInfo.getName() != null) {
 					SET(" name = #{name} ");
 				}
-				if (params.get("phoneNum") != null) {
-					SET(" phone_num = #{phone_num} ");
+				if (recipientInfo.getPhoneNum() != null) {
+					SET(" phone_num = #{phoneNum} ");
 				}
-				if (params.get("zipCode") != null) {
-					SET(" zip_code = #{zip_code} ");
+				if (recipientInfo.getZipCode() != null) {
+					SET(" zip_code = #{zipCode} ");
 				}
-				if (params.get("userId") != null) {
-					WHERE(" user_id = #{user_id} ");
+				if (recipientInfo.getUserId() != null) {
+					WHERE(" user_id = #{userId} ");
 				}
-				if (params.get("addressId") != null) {
-					WHERE(" address_id = #{address_id} ");
+				if (recipientInfo.getAddressId() != null) {
+					WHERE(" address_id = #{addressId} ");
 				}
 			}
 		}.toString();
@@ -51,30 +53,33 @@ public class RecipientInfoDynaSqlProvider {
 	 * @param params
 	 * @return
 	 */
-	public String insertWithParams(Map<String, Object> params) {
+	public String insertWithRecipientInfo(RecipientInfo recipientInfo) {
 		return new SQL() {
 			{
 				INSERT_INTO("recipient_info");
-				if (params.get("userName") != null) {
+				if (recipientInfo.getProvince() != null) {
 					VALUES("province", "#{province}");
 				}
-				if (params.get("city") != null) {
+				if (recipientInfo.getCity() != null) {
 					VALUES("city", "#{city}");
 				}
-				if (params.get("county") != null) {
+				if (recipientInfo.getCounty() != null) {
 					VALUES("county", "#{county}");
 				}
-				if (params.get("detail_address") != null) {
-					VALUES("detail_address", "#{detail_address}");
+				if (recipientInfo.getDetailAddress() != null) {
+					VALUES("detail_address", "#{detailAddress}");
 				}
-				if (params.get("name") != null) {
+				if (recipientInfo.getName() != null) {
 					VALUES("name", "#{name}");
 				}
-				if (params.get("phone_num") != null) {
-					VALUES("phone_num", "#{phone_num}");
+				if (recipientInfo.getPhoneNum() != null) {
+					VALUES("phone_num", "#{phoneNum}");
 				}
-				if (params.get("zip_code") != null) {
-					VALUES("zip_code", "#{zip_code}");
+				if (recipientInfo.getZipCode() != null) {
+					VALUES("zip_code", "#{zipCode}");
+				}
+				if (recipientInfo.getUserId() != null) {
+					VALUES("user_id", "#{userId}");
 				}
 			}
 		}.toString();

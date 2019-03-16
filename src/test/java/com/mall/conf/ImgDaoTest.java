@@ -1,6 +1,6 @@
 package com.mall.conf;
 
-import org.apache.ibatis.annotations.Options;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mall.dao.ImgDao;
 import com.mall.model.Img;
+
 
 
 @RunWith(SpringRunner.class)
@@ -32,6 +33,7 @@ public class ImgDaoTest {
 		Img img =  new Img();
 		img.setUrl("/img/img.jpg");
 		
+		Logger log = LoggerFactory.getLogger(getClass());
 		/*
 		 * 这是我原本错误的理解，以为会返回主键id，这是错的
 		 * 它只会返回影响行数
@@ -43,9 +45,9 @@ public class ImgDaoTest {
 		/*
 		 * 这才是正确的，insert通过 img.getImgId() 来获取主键的值
 		 */
-		imgDao.insertImg(img);
-		Logger log = LoggerFactory.getLogger(getClass());
-		log.info("" + img.getImgId());
+//		imgDao.insertImg(img);
+//		Logger log = LoggerFactory.getLogger(getClass());
+//		log.info("" + img.getImgId());
 		
 		/*
 		 * 如果你还不放心的话，
@@ -57,6 +59,14 @@ public class ImgDaoTest {
 //		Logger log = LoggerFactory.getLogger(getClass());
 //		log.info("" + img.getImgId());
 		
+//		ArrayList<Img> imges = imgDao.selectByUpperId(1);
+//		for (Img img2 : imges) {
+//			log.info("在这里！" + img2.getUrl() + ", id:" + img2.getImgId());
+//		}
 		
+//		imgDao.deleteByImgId(3);
+		img.setImgId(2);
+		imgDao.updateImg(img);
+		Assert.assertEquals("/img/img.jpg", imgDao.selectByImgId(2).getUrl());
 	}
 }

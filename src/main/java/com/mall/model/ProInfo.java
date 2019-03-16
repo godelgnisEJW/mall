@@ -14,6 +14,8 @@ public class ProInfo implements Serializable {
 	private String proType;
 	//价格
 	private Double price;
+	//库存
+	public Integer stock;
 	//参数，格式为key=vlaue，用";"分隔
 	private String params;
 	
@@ -23,6 +25,15 @@ public class ProInfo implements Serializable {
 	public ArrayList<Img> getImges() {
 		return imges;
 	}
+	
+	public Integer getStock() {
+		return stock;
+	}
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
+	}
+
 
 	public void setImges(ArrayList<Img> imges) {
 		this.imges = imges;

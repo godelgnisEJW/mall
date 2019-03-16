@@ -26,7 +26,7 @@ public interface ProductDao {
 	 * 通过上架号查询商品信息
 	 * @param upperId
 	 */
-	@Select("select * from  product where upper_id = #{upper_id}")
+	@Select("select * from  product where upper_id = #{upperId}")
 	@Results({
 		@Result(column = "upper_id", property = "upperId"),
 		@Result(column = "upper_id", property = "imges",
@@ -36,7 +36,7 @@ public interface ProductDao {
 				many = @Many(
 						select = "com.mall.dao.ProInfoDao.selectByUpperId"))
 	})
-	public Product selectByUppderId(@Param("upper_id")Integer upperId);
+	public Product selectByUppderId(Integer upperId);
 	
 	/**
 	 * 模糊查询，通过商品标题进行模糊查询
@@ -53,7 +53,7 @@ public interface ProductDao {
 				many = @Many(
 						select = "com.mall.dao.ProInfoDao.selectByUpperId"))
 	})
-	public ArrayList<Product> selectByTitle(@Param("title")String title);
+	public ArrayList<Product> selectByTitle(String title);
 	
 	/**
 	 * 通过品牌查询商品
@@ -70,7 +70,7 @@ public interface ProductDao {
 				many = @Many(
 						select = "com.mall.dao.ProInfoDao.selectByUpperId"))
 	})
-	public ArrayList<Product> seleByBrand(@Param("brand")String brand);
+	public ArrayList<Product> seleByBrand(String brand);
 	
 	/**
 	 * 通过商品种类查询相关商品
@@ -87,14 +87,14 @@ public interface ProductDao {
 				many = @Many(
 						select = "com.mall.dao.ProInfoDao.selectByUpperId"))
 	})
-	public ArrayList<Product> selectByCategory(@Param("category")String category);
+	public ArrayList<Product> selectByCategory(String category);
 	
 	/**
 	 * 插入一条商品信息
 	 * @param product
 	 * @return
 	 */
-	@Insert("insert into product(title, brand, category) vales(#{title}, #{brand}, #{category})")
+	@Insert("insert into product(title, brand, category) values(#{title}, #{brand}, #{category})")
 	 @Options(useGeneratedKeys = true, keyProperty = "upperId", keyColumn = "upper_id")
 	public int insertProduct(Product product);
 	
@@ -102,8 +102,8 @@ public interface ProductDao {
 	 * 通过上架号删除商品记录
 	 * @param upperId
 	 */
-	@Delete("delete from product where upper_id = #{upper_id}")
-	public void deleteProduct(@Param("upper_id")String upperId);
+	@Delete("delete from product where upper_id = #{upperId}")
+	public void deleteProduct(Integer upperId);
 	
 	/**
 	 * 更新商品信息
@@ -122,21 +122,21 @@ public interface ProductDao {
 	 * @return
 	 */
 	@SelectProvider(method = "selectWithParams", type = com.mall.dynamicSql.ProductDynaSqlProvider.class)
-	public User selectWithParams(Map<String, Object> params);
+	public ArrayList<Product> selectWithParams(Map<String, Object> params);
 	
 	/**
 	 * 动态更新
-	 * @param params
+	 * @param product
 	 * @return
 	 */
-	@UpdateProvider(method = "updateWithParams", type = com.mall.dynamicSql.ProductDynaSqlProvider.class)
-	public User updateWithParams(Map<String, Object> params);
+	@UpdateProvider(method = "updateWithProduct", type = com.mall.dynamicSql.ProductDynaSqlProvider.class)
+	public void updateWithProduct(Product product);
 	
 	/**
 	 * 动态插入
-	 * @param params
+	 * @param product
 	 * @return
 	 */
-	@InsertProvider(method = "insertWithParams", type = com.mall.dynamicSql.ProductDynaSqlProvider.class)
-	public User insertWithParams(Map<String, Object> params);
+	@InsertProvider(method = "insertWithProduct", type = com.mall.dynamicSql.ProductDynaSqlProvider.class)
+	public int insertWithProduct(Product product);
 }

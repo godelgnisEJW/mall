@@ -21,13 +21,9 @@ public interface CartDao {
 	 * @param serialNum加入购物车的序列号
 	 * @return
 	 */
-	@Select("select * from cart where serial_num = #{serial_num}")
+	@Select("select * from cart where serial_num = #{serialNum}")
 	@Results({
-		@Result(id = true, column = "serial_num", property = "serialNum"),
 		@Result(column = "pro_id", property = "proId"),
-		@Result(column = "user_id", property = "userId"),
-		@Result(column = "count_to_add", property = "countToAdd"),
-		@Result(column = "time_to_add", property = "timeToAdd"),
 		@Result(column = "pro_id", property = "proInfo",
 				one = @One(
 						select = "com.mall.dao.ProInfoDao.selectByProId"))

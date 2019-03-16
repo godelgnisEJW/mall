@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -18,28 +20,28 @@ public interface ImgDao {
 	 * @param imgId
 	 * @return
 	 */
-	@Select("select * from img where img_id = #{img_id}")
-	public Img selectByImgId(@Param("img_id")Integer imgId);
+	@Select("select * from img where img_id = #{imgId}")
+	public Img selectByImgId(Integer imgId);
 	/**
 	 * 根据商品Id查询商品展示图片
 	 * @param proId
 	 * @return
 	 */
-	@Select("select * from img natural join show_img_mid where pro_id = #{pro_id}")
-	public ArrayList<Img> selectByProId(@Param("pro_id")Integer proId);
+	@Select("select * from img natural join show_img_mid where pro_id = #{proId}")
+	public ArrayList<Img> selectByProId(Integer proId);
 	/**
 	 * 根据上架号查询商品的详情图片
 	 * @param upperId
 	 * @return
 	 */
-	@Select("select * from img natural join detail_img_mid where upper_id = #{upper_id}")
-	public ArrayList<Img> selectByUpperId(@Param("upper_id")Integer upperId);
+	@Select("select * from img natural join detail_img_mid where upper_id = #{upperId}")
+	public ArrayList<Img> selectByUpperId(Integer upperId);
 	/**
 	 * 根据图片Id删除图片记录
 	 * @param imgId
 	 */
-	@Delete("delete from img where img_id = #{img_id}")
-	public void deleteByImgId(@Param("img_id")Integer imgId);
+	@Delete("delete from img where img_id = #{imgId}")
+	public void deleteByImgId(Integer imgId);
 	/**
 	 * 更新图片路径
 	 * @param imgId

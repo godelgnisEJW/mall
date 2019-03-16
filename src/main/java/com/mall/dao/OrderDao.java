@@ -1,12 +1,11 @@
 package com.mall.dao;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.One;
 import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -21,42 +20,42 @@ public interface OrderDao {
 	 * @param orderNum
 	 * @return
 	 */
-	@Select("select * from order where order_num = #{order_num}")
-	public Order selectByOrderNum(@Param("order_num")Integer orderNum);
+	@Select("select * from mall.order where order_num = #{orderNum}")
+	public Order selectByOrderNum(Integer orderNum);
 
 	/**
 	 * 根据用户Id查询该用户的所有订单
 	 * @param userId
 	 * @return
 	 */
-	@Select("select * from order where user_id = #{user_id}")
+	@Select("select * from mall.order where user_id = #{userId}")
 	@Results({
-		@Result(property = "userId", column = "user_id"),
+		@Result(property = "addressId", column = "address_id"),
 		@Result(property = "proId", column = "pro_id"),
-		@Result(property = "userId", column = "user_id",
+		@Result(property = "recipientInfo", column = "address_id",
 			one = @One(
-					select = "com.mall.dao.RecipientInfoDao.selectByUserId")
+					select = "com.mall.dao.RecipientInfoDao.selectByAddressId")
 		),
-		@Result(property = "proId", column = "pro_id",
+		@Result(property = "proInfo", column = "pro_id",
 			one = @One(
 					select = "com.mall.dao.ProInfoDao.selectByProId")
 		)
 	})
-	public List<Order> selectByUserId(@Param("user_id")Integer userId);
+	public ArrayList<Order> selectByUserId(Integer userId);
 	
 	/**
 	 * 添加新的订单记录
 	 * @param order
 	 * @return
 	 */
-	@Insert("insert into order("
+	@Insert("insert into mall.order("
 			+ "user_id, pro_id, count_to_order, "
 			+ "time_to_order, express_num, address_id, "
-			+ "is_payed, is_signed) "
+			+ "is_payed, is_signed, total) "
 			+ "values("
-			+ "#{user_id}, #{pro_id}, #{count_to_order}, "
-			+ "#{time_to_order}, #{express_num}, #{address_id}, "
-			+ "#{is_payed}, #{is_signed})")
+			+ "#{userId}, #{proId}, #{countToOrder}, "
+			+ "#{timeToOrder}, #{expressNum}, #{addressId}, "
+			+ "#{isPayed}, #{isSigned}, #{total})")
 	@Options(useGeneratedKeys = true, keyProperty = "orderNum", keyColumn = "order_num")
 	public int insertOrder(Order order);
 	
@@ -65,14 +64,14 @@ public interface OrderDao {
 	 * @param isPayed
 	 * @param orderNum
 	 */
-	@Update("update order set is_payed = #{is_payed} where order_num = #{order_num}")
-	public void updateIsPayed(@Param("is_payed")Boolean isPayed, @Param("order_num")Integer orderNum);
+	@Update("update mall.order set is_payed = #{isPayed} where order_num = #{orderNum}")
+	public void updateIsPayed(Boolean isPayed, Integer orderNum);
 	
 	/**
 	 * 更新订单签收标志
 	 * @param isSigned
 	 * @param orderNum
 	 */
-	@Update("update order set is_signed = #{is_signed} where order_num = #{order_num}")
-	public void updateIsSigned(@Param("is_signed")Boolean isSigned, @Param("order_num")Integer orderNum);
+	@Update("update mall.order set is_signed = #{isSigned} where order_num = #{isSigned}")
+	public void updateIsSigned(Boolean isSigned, Integer orderNum);
 }

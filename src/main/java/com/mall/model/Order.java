@@ -11,7 +11,7 @@ public class Order implements Serializable {
 	//产品ID
 	private Integer proId;
 	//下单数量
-	private Integer counteToOrder;
+	private Integer countToOrder;
 	//下单时间,时间格式化
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private Date timeToOrder;
@@ -25,12 +25,24 @@ public class Order implements Serializable {
 	private Boolean isPayed;
 	//是否签收
 	private Boolean isSigned;
+	//总金额
+	private Double total;
 	
 	//收件人地址信息
 	private RecipientInfo recipientInfo;
 	//商品信息
 	private ProInfo proInfo;
 	
+	
+	public Double getTotal() {
+		return total;
+	}
+	public void setTotal(Double total) {
+		this.total = total;
+	}
+	public void setCountToOrder(Integer countToOrder) {
+		this.countToOrder = countToOrder;
+	}
 	public RecipientInfo getRecipientInfo() {
 		return recipientInfo;
 	}
@@ -55,11 +67,11 @@ public class Order implements Serializable {
 	public void setProId(Integer proId) {
 		this.proId = proId;
 	}
-	public Integer getCounteToOrder() {
-		return counteToOrder;
+	public Integer getCountToOrder() {
+		return countToOrder;
 	}
-	public void setCounteToOrder(Integer counteToOrder) {
-		this.counteToOrder = counteToOrder;
+	public void setCounteToOrder(Integer countToOrder) {
+		this.countToOrder = countToOrder;
 	}
 	public Date getTimeToOrder() {
 		return timeToOrder;

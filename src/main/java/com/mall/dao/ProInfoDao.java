@@ -26,14 +26,14 @@ public interface ProInfoDao {
 	 * @param proId
 	 * @return
 	 */
-	@Select("select * from pro_info where pro_id = #{pro_id}")
+	@Select("select * from pro_info where pro_id = #{proId}")
 	@Results({
 		@Result(column = "pro_id", property = "proId"),
 		@Result(column = "pro_id", property = "imges",
 				many = @Many(
 						select = "com.mall.dao.ImgDao.selectByProId"))
 	})
-	public ProInfo selectByProId(@Param("pro_id")Integer proId);
+	public ProInfo selectByProId(Integer proId);
 	
 	
 	/**
@@ -41,21 +41,21 @@ public interface ProInfoDao {
 	 * @param upperId
 	 * @return
 	 */
-	@Select("select * from pro_info where upper_id = #{upper_id}")
+	@Select("select * from pro_info where upper_id = #{upperId}")
 	@Results({
 		@Result(column = "pro_id", property = "proId"),
 		@Result(column = "pro_id", property = "imges",
 				many = @Many(
 						select = "com.mall.dao.ImgDao.selectByProId"))
 	})
-	public ArrayList<ProInfo> selectByUpperId(@Param("upper_id")Integer upperId);
+	public ArrayList<ProInfo> selectByUpperId(Integer upperId);
 	
 	/**
 	 * 插入一条商品信息记录
 	 * @param proInfo
 	 * @return	主键pro_id
 	 */
-	@Insert("insert into pro_info(upper_id, pro_name, pro_type, price, stock, params) vaules(#upperId}, #proName}, #{proType}, #{price}, #{stock}, #{params})")
+	@Insert("insert into pro_info(upper_id, pro_name, pro_type, price, stock, params) values(#{upperId}, #{proName}, #{proType}, #{price}, #{stock}, #{params})")
     @Options(useGeneratedKeys = true, keyProperty = "proId", keyColumn = "pro_id")
 	public int insertProInfo(ProInfo proInfo);
 	
@@ -63,20 +63,20 @@ public interface ProInfoDao {
 	 * 通过商品Id删除记录
 	 * @param proId
 	 */
-	@Delete("delete from pro_info where pro_id = #{pro_id}")
-	public void deleteByProId(@Param("pro_id")Integer proId);
+	@Delete("delete from pro_info where pro_id = #{proId}")
+	public void deleteByProId(Integer proId);
 	
 	/**
 	 * 完全更新商品信息，只有params可以是空的，其他属性必须赋值，否则会出错
 	 * @param proInfo
 	 */
 	@Update("update pro_info set "
-			+ "upper_id = {#upperId}, "
-			+ "pro_name = #proName}, "
+			+ "upper_id = #{upperId}, "
+			+ "pro_name = #{proName}, "
 			+ "pro_type = #{proType}, "
 			+ "price = #{price}, "
 			+ "stock = #{stock}, "
-			+ "params = #{params}"
+			+ "params = #{params} "
 			+ "where pro_id = #{proId}")
 	public void updateProInfo(ProInfo proInfo);
 	
@@ -86,22 +86,22 @@ public interface ProInfoDao {
 	 * @return
 	 */
 	@SelectProvider(method = "selectWithParams", type = com.mall.dynamicSql.ProInfoDynaSqlProvider.class)
-	public User selectWithParams(Map<String, Object> params);
+	public ArrayList<ProInfo> selectWithParams(Map<String, Object> params);
 	
 	/**
 	 * 动态更新
-	 * @param params
+	 * @param proInfo
 	 * @return
 	 */
-	@UpdateProvider(method = "updateWithParams", type = com.mall.dynamicSql.ProInfoDynaSqlProvider.class)
-	public User updateWithParams(Map<String, Object> params);
+	@UpdateProvider(method = "updateWithProInfo", type = com.mall.dynamicSql.ProInfoDynaSqlProvider.class)
+	public void updateWithProInfo(ProInfo proInfo);
 	
 	/**
 	 * 动态插入
-	 * @param params
+	 * @param proInfo
 	 * @return
 	 */
-	@InsertProvider(method = "insertWithParams", type = com.mall.dynamicSql.ProInfoDynaSqlProvider.class)
-	public User insertWithParams(Map<String, Object> params);
+	@InsertProvider(method = "insertWithProInfo", type = com.mall.dynamicSql.ProInfoDynaSqlProvider.class)
+	public int insertWithProInfo(ProInfo proInfo);
 	
 }

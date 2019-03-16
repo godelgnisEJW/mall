@@ -25,16 +25,16 @@ public interface RecipientInfoDao {
 	 * @param addressId  地址Id
 	 * @return
 	 */
-	@Select("select * from recipient_info where address_id = #{address_id}")
-	public RecipientInfo selectByAddressId(@Param("address_id")Integer addressId);
+	@Select("select * from recipient_info where address_id = #{addressId}")
+	public RecipientInfo selectByAddressId(Integer addressId);
 
 	/**
 	 * 根据用户Id查询用户的所有收件地址
 	 * @param userId 用户Id
 	 * @return
 	 */
-	@Select("select * from recipient_info where user_id = #{user_id}")
-	public ArrayList<RecipientInfo> selectByUserId(@Param("user_id")Integer userId);
+	@Select("select * from recipient_info where user_id = #{userId}")
+	public ArrayList<RecipientInfo> selectByUserId(Integer userId);
 	
 	/**
 	 * 添加收件人信息
@@ -42,7 +42,7 @@ public interface RecipientInfoDao {
  	 * @return  新插入的收件人信息的地址Id address_id
 	 */
 	@Insert("insert into recipient_info(province, city, county, detail_address, name, phone_num, zip_code, user_id)"
-			+ "values(#{province},#{city},#{county},#{detail_address},#{name},#{phone_num},#{zip_code},#{user_id})")
+			+ "values(#{province},#{city},#{county},#{detailAddress},#{name},#{phoneNum},#{zipCode},#{userId})")
 	@Options(useGeneratedKeys = true, keyProperty = "addressId", keyColumn = "address_id")
 	public int insertRecipientInfo(RecipientInfo recipientInfo);
 	
@@ -50,39 +50,39 @@ public interface RecipientInfoDao {
 	 * 删除收件人信息
 	 * @param addressId 地址ID
 	 */
-	@Delete("delete * from recipient_info where address_id = #{address_id}")
-	public void deleteRecipientInfo(@Param("address_id")Integer addressId);
+	@Delete("delete from recipient_info where address_id = #{addressId}")
+	public void deleteRecipientInfo(Integer addressId);
 	
 	/**
 	 * 更新收件人信息
 	 * @param recipientInfo 新的收件人信息
 	 */
-	@Update("update recipient_info set"
+	@Update("update recipient_info set "
 			+ "province = #{province},"
 			+ "city = #{city},"
 			+ "county = #{county},"
-			+ "detail_address = #{detail_address},"
+			+ "detail_address = #{detailAddress},"
 			+ "name = #{name},"
-			+ "phone_num = #{phone_num},"
-			+ "zip_code = #{zip_code},"
-			+ "user_id = #{user_id}"
-			+ "where address_id = #{address_id}")
+			+ "phone_num = #{phoneNum},"
+			+ "zip_code = #{zipCode},"
+			+ "user_id = #{userId} "
+			+ "where address_id = #{addressId}")
 	public void updateRecipientInfo(RecipientInfo recipientInfo);
 	
 	
 	/**
 	 * 动态更新
-	 * @param params
+	 * @param recipientInfo
 	 * @return
 	 */
-	@UpdateProvider(method = "updateWithParams", type = com.mall.dynamicSql.RecipientInfoDynaSqlProvider.class)
-	public User updateWithParams(Map<String, Object> params);
+	@UpdateProvider(method = "updateWithRecipientInfo", type = com.mall.dynamicSql.RecipientInfoDynaSqlProvider.class)
+	public void updateWithRecipientInfo(RecipientInfo recipientInfo);
 	
 	/**
 	 * 动态插入
-	 * @param params
+	 * @param recipientInfo
 	 * @return
 	 */
-	@InsertProvider(method = "insertWithParams", type = com.mall.dynamicSql.RecipientInfoDynaSqlProvider.class)
-	public User insertWithParams(Map<String, Object> params);
+	@InsertProvider(method = "insertWithRecipientInfo", type = com.mall.dynamicSql.RecipientInfoDynaSqlProvider.class)
+	public int insertWithRecipientInfo(RecipientInfo recipientInfo);
 }

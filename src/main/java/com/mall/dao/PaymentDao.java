@@ -19,7 +19,7 @@ public interface PaymentDao {
 	 * @param payment
 	 * @return
 	 */
-	@Insert("insert into * payment(user_id, card_type, card_nnum) values(#{user_id}, #{card_type}, #{card_num})")
+	@Insert("insert into payment(user_id, card_type, card_num) values(#{userId}, #{cardType}, #{cardNum})")
 	@Options(useGeneratedKeys = true, keyProperty = "paymentId", keyColumn = "payment_id")
 	public int insertPayment(Payment payment);
 	
@@ -27,22 +27,22 @@ public interface PaymentDao {
 	 * 删除银行卡记录
 	 * @param paymentId
 	 */
-	@Delete("delete from payment where payment_id = #{payment_id}")
-	public void deleteByPaymentId(@Param("payment_id")Integer paymentId);
+	@Delete("delete from payment where payment_id = #{paymentId}")
+	public void deleteByPaymentId(Integer paymentId);
 	
 	/**
 	 * 通过支付Id查找相应的银行卡记录
 	 * @param paymentId
 	 * @return
 	 */
-	@Select("select * from payment where payment_id = #{payment_id")
-	public Payment selecetByPaymentId(@Param("payment_id")Integer paymentId);
+	@Select("select * from payment where payment_id = #{paymentId}")
+	public Payment selecetByPaymentId(Integer paymentId);
 	
 	/**
 	 * 通过用户Id查找用户拥有的所有银行卡
 	 * @param userId
 	 * @return
 	 */
-	@Select("select * from payment where user_id = #{user_id}")
-	public ArrayList<Payment> selectByUserId(@Param("user_id")Integer userId);
+	@Select("select * from payment where user_id = #{userId}")
+	public ArrayList<Payment> selectByUserId(Integer userId);
 }

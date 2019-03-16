@@ -4,6 +4,8 @@ import java.util.Map;
 
 import org.apache.ibatis.jdbc.SQL;
 
+import com.mall.model.User;
+
 public class UserDynaSqlProvider {
 	/**
 	 * 动态查询
@@ -16,12 +18,12 @@ public class UserDynaSqlProvider {
 				SELECT("*");
 				FROM("user");
 				if (params.get("userName") != null) {
-					WHERE(" user_name = #{user_name} ");
+					WHERE(" user_name = #{userName} ");
 				}
-				if (params.get("phone") != null) {
+				else if (params.get("phone") != null) {
 					WHERE(" phone = #{phone} ");
 				}
-				if (params.get("mail") != null) {
+				else if (params.get("mail") != null) {
 					WHERE(" mail = #{mail} ");
 				}
 			}
@@ -32,26 +34,26 @@ public class UserDynaSqlProvider {
 	 * @param params
 	 * @return
 	 */
-	public String updateWithParams(Map<String, Object> params) {
+	public String updateWithUser(User user) {
 		return new SQL() {
 			{
 				UPDATE("user");
-				if (params.get("userName") != null) {
-					SET(" user_name = #{user_name} ");
+				if (user.getUserName() != null) {
+					SET(" user_name = #{userName} ");
 				}
-				if (params.get("password") != null) {
+				if (user.getPassword() != null) {
 					SET(" password = #{password} ");
 				}
-				if (params.get("userType") != null) {
-					SET(" user_type = #{user_type} ");
+				if (user.getUserType() != null) {
+					SET(" user_type = #{userType} ");
 				}
-				if (params.get("phone") != null) {
+				if (user.getPhone() != null) {
 					SET(" phone = #{phone} ");
 				}
-				if (params.get("mail") != null) {
+				if (user.getMail() != null) {
 					SET(" mail = #{mail} ");
 				}
-				WHERE(" user_id = #{user_id} ");
+				WHERE(" user_id = #{userId} ");
 			}
 		}.toString();
 	}
@@ -61,23 +63,23 @@ public class UserDynaSqlProvider {
 	 * @param params
 	 * @return
 	 */
-	public String insertWithParams(Map<String, Object> params) {
+	public String insertWithUser(User user) {
 		return new SQL() {
 			{
 				INSERT_INTO("user");
-				if (params.get("userName") != null) {
-					VALUES("user_name", "#{user_name}");
+				if (user.getUserName() != null) {
+					VALUES("user_name", "#{userName}");
 				}
-				if (params.get("password") != null) {
+				if (user.getPassword() != null) {
 					VALUES("password", "#{password}");
 				}
-				if (params.get("userType") != null) {
-					VALUES("user_type", "#{user_type}");
+				if (user.getUserType() != null) {
+					VALUES("user_type", "#{userType}");
 				}
-				if (params.get("phone") != null) {
+				if (user.getPhone() != null) {
 					VALUES("phone", "#{phone}");
 				}
-				if (params.get("mail") != null) {
+				if (user.getMail() != null) {
 					VALUES("mail", "#{mail}");
 				}
 			}
