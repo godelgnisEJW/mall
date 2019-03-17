@@ -43,15 +43,15 @@ public interface CartDao {
 	 * @param userId
 	 * @return
 	 */
-	@Select("select * from cart where user_id = #{user_id}")
-	public ArrayList<Cart> selectByUserId(@Param("user_id")Integer userId);
+	@Select("select * from cart where user_id = #{userId}")
+	public ArrayList<Cart> selectByUserId(Integer userId);
 	
 	/**
 	 * 添加一条购物车信息
 	 * @param cart
 	 * @return
 	 */
-	@Insert("insert cart(user_id, pro_id, count_to_add, time_to_add) values(#{user_id}, #{pro_id}, #{count_to_add}, #{time_to_add})")
+	@Insert("insert cart(user_id, pro_id, count_to_add, time_to_add) values(#{userId}, #{proId}, #{countToAdd}, #{timeToAdd})")
 	@Options(useGeneratedKeys = true, keyProperty = "serialNum", keyColumn = "serial_num")
 	public int insertCart(Cart cart);
 	
@@ -59,15 +59,15 @@ public interface CartDao {
 	 * 
 	 * @param serialNum
 	 */
-	@Delete("delete * from cart where serial_num = #{serial_num}")
-	public void deleteCart(@Param("serial_num")Integer serialNum);
+	@Delete("delete from cart where serial_num = #{serialNum}")
+	public void deleteCart(Integer serialNum);
 	
 	/**
 	 * 更改加入购物车中的对应serial_num的商品的购物数量
 	 * @param countToAdd
 	 * @param serialNum
 	 */
-	@Update("update cart set count_to_add = #{count_to_add} where serial_num = #{serial_num}")
-	public void updateCountToAdd(@Param("count_to_add")Integer countToAdd, @Param("serial_num")Integer serialNum);
+	@Update("update cart set count_to_add = #{countToAdd} where serial_num = #{serialNum}")
+	public void updateCountToAdd(Integer countToAdd, Integer serialNum);
 	
 }

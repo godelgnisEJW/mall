@@ -23,26 +23,26 @@ public interface FeedbackDao {
 	 * @param fbId
 	 * @return
 	 */
-	@Select("select * from feedback where fb_id = #{fb_id}")
+	@Select("select * from feedback where fb_id = #{fbId}")
 	@Results({
 		@Result(column = "img_id", property = "imgId"),
 		@Result(column = "img_id", property = "img",
-				one = @One(select = "com.mall.dao.ImgDao.selectByUpperId"))
+				one = @One(select = "com.mall.dao.ImgDao.selectByImgId"))
 	})
-	public Feedback selectByFbId(@Param("fb_id")Integer fbId);
+	public Feedback selectByFbId(Integer fbId);
 	
 	/**
 	 * 通过用户Id查询该用户的反馈记录
 	 * @param userId
 	 * @return
 	 */
-	@Select("select * from feedback where user_id = #{user_id}")
+	@Select("select * from feedback where user_id = #{userId}")
 	@Results({
 		@Result(column = "img_id", property = "imgId"),
 		@Result(column = "img_id", property = "img",
-				one = @One(select = "com.mall.dao.ImgDao.selectByUpperId"))
+				one = @One(select = "com.mall.dao.ImgDao.selectByImgId"))
 	})
-	public ArrayList<Feedback> selectAllByUserId(@Param("user_id")Integer userId);
+	public ArrayList<Feedback> selectAllByUserId(Integer userId);
 	
 	/**
 	 * 查询所有的反馈记录
@@ -52,7 +52,7 @@ public interface FeedbackDao {
 	@Results({
 		@Result(column = "img_id", property = "imgId"),
 		@Result(column = "img_id", property = "img",
-				one = @One(select = "com.mall.dao.ImgDao.selectByUpperId"))
+				one = @One(select = "com.mall.dao.ImgDao.selectByImgId"))
 	})
 	public ArrayList<Feedback> selectAll();
 	/**
@@ -60,7 +60,7 @@ public interface FeedbackDao {
 	 * @param feedback
 	 * @return
 	 */
-	@Insert("insert into feedback(user_id, fb_content, fb_time, img_id) values(#{user_id}, #{fb_content}, #{fb_time}, #{img_id})")
+	@Insert("insert into feedback(user_id, fb_content, fb_time, img_id) values(#{userId}, #{fbContent}, #{fbTime}, #{imgId})")
     @Options(useGeneratedKeys = true, keyProperty = "fbId", keyColumn = "fb_id")
 	public int insertFeedback(Feedback feedback);
 	
@@ -68,6 +68,6 @@ public interface FeedbackDao {
 	 *删除一条反馈记录
 	 * @param fbId
 	 */
-	@Delete("delete from feedback where fb_id = #{fb_id}")
-	public void deleteFeedback(@Param("fb_id")Integer fbId);
+	@Delete("delete from feedback where fb_id = #{fbId}")
+	public void deleteFeedback(Integer fbId);
 }

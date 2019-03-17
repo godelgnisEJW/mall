@@ -50,6 +50,7 @@ public class ProductDynaSqlProvider {
 				if (product.getCategory() != null) {
 					SET(" category = #{category} ");
 				}
+				WHERE(" upper_id = #{upperId}");
 			}
 		}.toString();
 	}

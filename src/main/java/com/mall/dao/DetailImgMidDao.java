@@ -19,15 +19,15 @@ public interface DetailImgMidDao {
 	 * @param upperId
 	 * @return
 	 */
-	@Select("select * from detail_img_mid where upper_id = #{upper_id}")
-	public ArrayList<DetailImgMid> selectByUpperId(@Param("upper_id")Integer upperId);
+	@Select("select * from detail_img_mid where upper_id = #{upperId}")
+	public ArrayList<DetailImgMid> selectByUpperId(Integer upperId);
 
 	/**
 	 * 向表中插入一条新纪录
 	 * @param detailImgMid
 	 * @return
 	 */
-	@Insert("insert into detail_img_mid(img_id, upper_id) values(#{img_id}, #{upper_id})")
+	@Insert("insert into detail_img_mid(img_id, upper_id) values(#{imgId}, #{upperId})")
 	public int insert(DetailImgMid detailImgMid);
 	
 	/**
@@ -35,13 +35,13 @@ public interface DetailImgMidDao {
 	 * @param detailImgMid
 	 * @param newImgId
 	 */
-	@Update("update detail_img_mid set img_id = #{new_img_id} where upper_id = #{upper_id} and img_id = #{img_id}")
-	public void update(DetailImgMid detailImgMid, @Param("new_img_id")Integer newImgId);
+	@Update("update detail_img_mid set img_id = #{newImgId} where upper_id = #{detailImgMid.upperId} and img_id = #{detailImgMid.imgId}")
+	public void update(DetailImgMid detailImgMid, Integer newImgId);
 	
 	/**
 	 * 根据上架号和图片Id删除对应的中间记录
 	 * @param upperId
 	 */
-	@Delete("delete from detail_img_mid where upper_id = #{upper_id} and img_id = #{img_id}")
+	@Delete("delete from detail_img_mid where upper_id = #{upperId} and img_id = #{imgId}")
 	public void delete(DetailImgMid detailImgMid);
 }
