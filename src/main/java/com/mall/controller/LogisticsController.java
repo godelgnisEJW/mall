@@ -16,6 +16,11 @@ public class LogisticsController {
 	LogisticsService logisticsService;
 	/**
 	 * 查询物流轨迹
+	 ******************************************* 
+	 * 想要完善这个功能                                             *
+	 * 还需要到数据库中在order这张表中                   *
+	 * 添加expCod(快递公司代号)来记录是哪一家快递*
+	 * *****************************************
 	 * @param expCode
 	 * @param expNo
 	 * @return

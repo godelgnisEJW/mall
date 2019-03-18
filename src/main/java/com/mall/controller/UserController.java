@@ -1,6 +1,7 @@
 package com.mall.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.mall.model.Message;
 import com.mall.model.User;
 import com.mall.service.UserService;
@@ -107,12 +109,14 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public ArrayList<User> selectAll(@RequestParam(value = "pageNum" ,required = false)Integer pageNum, 
+	public PageInfo<User> selectAll(@RequestParam(value = "pageNum" ,required = false)Integer pageNum, 
 									 @RequestParam(value = "pageSize" ,required = false)Integer pageSize){
 		if (pageNum != null && pageSize != null) {
 			PageHelper.startPage(pageNum, pageSize);
 		}
-		return userService.selectAll();
+		List<User> userList = userService.selectAll();
+		PageInfo<User> userPageInfo = new PageInfo<>(userList);
+		return userPageInfo;
 	}
 	
 	/**
@@ -121,13 +125,14 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/name", method = RequestMethod.GET)
-	public ArrayList<User> fuzzyQueryByName(@RequestParam("userName")String userName,
+	public PageInfo<User> fuzzyQueryByName(@RequestParam("userName")String userName,
 											@RequestParam(value = "pageNum" ,required = false)Integer pageNum, 
 											@RequestParam(value = "pageSize" ,required = false)Integer pageSize){
 		if (pageNum != null && pageSize != null) {
 			PageHelper.startPage(pageNum, pageSize);
 		}
-		return userService.fuzzyQueryByName(userName);
+		List<User> userList = userService.fuzzyQueryByName(userName);
+		PageInfo<User> userPageInfo = new PageInfo<>(userList);
+		return userPageInfo;
 	}
-	
 }
