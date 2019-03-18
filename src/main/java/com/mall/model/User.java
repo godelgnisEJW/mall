@@ -7,7 +7,7 @@ public class User implements Serializable {
 	private String userName;
 	//密码
 	private String password;
-	//用户类型，只有“normal”和“admin”两种
+	//用户类型，有“normal”和“admin”和“freezed”，freezed表示冻结账户
 	private String userType;
 	//用户ID
 	private Integer userId;

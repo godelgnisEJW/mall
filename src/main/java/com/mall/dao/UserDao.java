@@ -27,6 +27,14 @@ public interface UserDao {
 	public User selectByUserName(String userName);
 	
 	/**
+	 * 通过用户名进行模糊查询
+	 * @param userName
+	 * @return
+	 */
+	@Select("select * from user where user_name like CONCAT('%',#{userName},'%')")
+	public ArrayList<User> fuzzyQueryByName(String userName);
+	
+	/**
 	 * 通过手机号码查询用户记录
 	 * @param phone
 	 * @return
