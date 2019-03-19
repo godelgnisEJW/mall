@@ -44,6 +44,13 @@ public interface CartDao {
 	 * @return
 	 */
 	@Select("select * from cart where user_id = #{userId}")
+	@Results({
+		@Result(column = "pro_id", property = "proId"),
+		@Result(column = "user_id", property = "userId"),
+		@Result(column = "pro_id", property = "proInfo",
+				one = @One(
+						select = "com.mall.dao.ProInfoDao.selectByProId"))
+	})
 	public ArrayList<Cart> selectByUserId(Integer userId);
 	
 	/**

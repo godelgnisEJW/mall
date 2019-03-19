@@ -126,8 +126,8 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/name", method = RequestMethod.GET)
 	public PageInfo<User> fuzzyQueryByName(@RequestParam("userName")String userName,
-											@RequestParam(value = "pageNum" ,required = false)Integer pageNum, 
-											@RequestParam(value = "pageSize" ,required = false)Integer pageSize){
+					@RequestParam(value = "pageNum" ,required = false)Integer pageNum, 
+					@RequestParam(value = "pageSize" ,required = false)Integer pageSize){
 		if (pageNum != null && pageSize != null) {
 			PageHelper.startPage(pageNum, pageSize);
 		}

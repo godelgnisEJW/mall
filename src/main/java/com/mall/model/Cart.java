@@ -1,7 +1,7 @@
 package com.mall.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -13,7 +13,7 @@ public class Cart implements Serializable{
 	//添加数量
 	private Integer countToAdd;
 	//添加时间,时间格式化
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private Date timeToAdd;
 	//购物序列号
 	private Integer serialNum;
