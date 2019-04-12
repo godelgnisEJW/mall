@@ -63,7 +63,7 @@ public interface CartDao {
 	public int insertCart(Cart cart);
 	
 	/**
-	 * 
+	 * 删除购物车中一条记录
 	 * @param serialNum
 	 */
 	@Delete("delete from cart where serial_num = #{serialNum}")

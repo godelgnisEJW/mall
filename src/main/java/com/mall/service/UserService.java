@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
+import org.jasypt.encryption.StringEncryptor;
+import org.jasypt.util.text.BasicTextEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,9 @@ public class UserService {
 	@Autowired
 	UserDao userDao;
 	
+	@Autowired
+	StringEncryptor encryptor;
+	
 	/**
 	 * 登录账户
 	 * @param userName
@@ -30,7 +35,9 @@ public class UserService {
 	public User login(String userName, String password) {
 		User user = userDao.selectByUserName(userName);
 		if (user != null) {
-			if (password.equals(user.getPassword()) && !user.getUserType().equals("freezed")) {
+			//将密码解密成明文
+			String plaintext = encryptor.decrypt(user.getPassword());
+			if (password.equals(plaintext) && !user.getUserType().equals("freezed")) {
 				return user;
 			}else {
 				return new User();
@@ -52,7 +59,9 @@ public class UserService {
 		}else {
 			user = new User();
 			user.setUserName(userName);
-			user.setPassword(password);
+			//密码加密后的密文
+			String ciphertext = encryptor.encrypt(password);
+			user.setPassword(ciphertext);
 			//设置为普通用户类型
 			user.setUserType("normal");
 			userDao.insertUser(user);

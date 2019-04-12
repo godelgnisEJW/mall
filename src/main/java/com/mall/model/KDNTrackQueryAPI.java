@@ -1,4 +1,4 @@
-﻿package com.mall.model;
+package com.mall.model;
 
 
 import java.io.BufferedReader;

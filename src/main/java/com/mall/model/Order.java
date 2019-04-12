@@ -17,6 +17,8 @@ public class Order implements Serializable {
 	private Date timeToOrder;
 	//快递单号
 	private String expressNum;
+	//快递公司代号
+	private String expCode;
 	//收件人地址Id
 	private Integer addressId;
 	//订单序列号
@@ -33,7 +35,21 @@ public class Order implements Serializable {
 	//商品信息
 	private ProInfo proInfo;
 	
+	//购物车Id
+	private int serialNum;
 	
+	public int getSerialNum() {
+		return serialNum;
+	}
+	public void setSerialNum(int serialNum) {
+		this.serialNum = serialNum;
+	}
+	public String getExpCode() {
+		return expCode;
+	}
+	public void setExpCode(String expCode) {
+		this.expCode = expCode;
+	}
 	public Double getTotal() {
 		return total;
 	}

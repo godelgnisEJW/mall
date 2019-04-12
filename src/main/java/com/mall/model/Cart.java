@@ -58,6 +58,10 @@ public class Cart implements Serializable{
 		this.serialNum = serialNum;
 	}
 	
-	
+//	@Override
+//	public String toString() {
+//		return "Cart [userId=" + userId + ", proId=" + proId + ", countToAdd=" + countToAdd + ", timeToAdd=" + timeToAdd
+//				+ ", serialNum=" + serialNum + ", proInfo=" + proInfo + "]";
+//	}
 	
 }

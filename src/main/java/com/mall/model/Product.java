@@ -12,12 +12,23 @@ public class Product implements Serializable {
 	private String category;
 	//上架ID
 	private Integer upperId;
+	//状态：在售、已下架
+	private String status;
 	
 	//商品详情图片
 	private ArrayList<Img> imges;
 	
 	private ArrayList<ProInfo> proInfoes;
 	
+	
+	public ArrayList<ProInfo> getProInfoes() {
+		return proInfoes;
+	}
+
+	public void setProInfoes(ArrayList<ProInfo> proInfoes) {
+		this.proInfoes = proInfoes;
+	}
+
 	public ArrayList<Img> getImges() {
 		return imges;
 	}
@@ -57,6 +68,13 @@ public class Product implements Serializable {
 	public void setUpperId(Integer upperId) {
 		this.upperId = upperId;
 	}
-	
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	
 }

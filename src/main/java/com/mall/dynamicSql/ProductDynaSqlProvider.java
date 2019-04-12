@@ -32,6 +32,7 @@ public class ProductDynaSqlProvider {
 			}
 		}.toString();
 	}
+	
 	/**
 	 * 动态更新
 	 * @param product

@@ -65,6 +65,7 @@ public class ImgService {
 		deleteFile(img.getUrl());
 		imgDao.deleteByImgId(img.getImgId());
 	}
+	
 	/**
 	 * 删除图片并更新img表中的数据
 	 * @param img

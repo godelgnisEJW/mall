@@ -66,7 +66,7 @@ public class FeedbackController {
 	 * @param userId
 	 * @return
 	 */
-	@GetMapping("/all/{userId}")
+	@GetMapping("/{userId}")
 	public PageInfo<Feedback> selectByUserId(@PathVariable("userId")int userId,
 					@RequestParam(value = "pageNum" ,required = false)Integer pageNum, 
 					@RequestParam(value = "pageSize" ,required = false)Integer pageSize){

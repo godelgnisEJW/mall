@@ -37,6 +37,23 @@ public interface ProductDao {
 	public Product selectByUppderId(Integer upperId);
 	
 	/**
+	 * 通过标题名和商品类型进行查询
+	 * @param category
+	 * @param title
+	 */
+	@Select("select * from product where category = #{category} and title like CONCAT('%',#{title},'%')")
+	@Results({
+		@Result(column = "upper_id", property = "upperId"),
+		@Result(column = "upper_id", property = "imges",
+				many = @Many(
+						select = "com.mall.dao.ImgDao.selectByUpperId")),
+		@Result(column = "upper_id", property = "proInfoes",
+				many = @Many(
+						select = "com.mall.dao.ProInfoDao.selectByUpperId"))
+	})
+	public ArrayList<Product> selectByTitleAndCategory(String category ,String title);
+	
+	/**
 	 * 模糊查询，通过商品标题进行模糊查询
 	 * @param title
 	 * @return
@@ -92,8 +109,8 @@ public interface ProductDao {
 	 * @param product
 	 * @return
 	 */
-	@Insert("insert into product(title, brand, category) values(#{title}, #{brand}, #{category})")
-	 @Options(useGeneratedKeys = true, keyProperty = "upperId", keyColumn = "upper_id")
+	@Insert("insert into product(title, brand, category, status) values(#{title}, #{brand}, #{category}, #{status})")
+	@Options(useGeneratedKeys = true, keyProperty = "upperId", keyColumn = "upper_id")
 	public int insertProduct(Product product);
 	
 	/**
@@ -110,7 +127,10 @@ public interface ProductDao {
 	@Update("update product set "
 			+ "title = #{title}, "
 			+ "brand = #{brand}, "
-			+ "category = #{category}")
+			+ "category = #{category},"
+			+ "status = #{status}"
+			+ "where upper_Id = #{upperId}"
+			)
 	public void updateProduct(Product product);
 	
 	

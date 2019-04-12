@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -83,6 +84,20 @@ public class CartController {
 			return message;
 		} catch (Exception e) {
 			message.setMessage("修改失败");
+			return message;
+		}
+	}
+	@DeleteMapping("/delete")
+	public Message delete(@RequestParam int serialNum) {
+		Message message = new Message();
+		try {
+			cartService.delete(serialNum);
+			message.setMessage("删除成功");
+			message.getOptionParam().put("status", "success");
+			return message;
+		} catch (Exception e) {
+			message.getOptionParam().put("status", "error");
+			message.setMessage("删除失败");
 			return message;
 		}
 	}

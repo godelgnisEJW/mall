@@ -23,6 +23,27 @@ public interface OrderDao {
 	@Select("select * from mall.order where order_num = #{orderNum}")
 	public Order selectByOrderNum(Integer orderNum);
 
+	
+	/**
+	 * 根据查询所有订单
+	 * @param userId
+	 * @return
+	 */
+	@Select("select * from mall.order")
+	@Results({
+		@Result(property = "addressId", column = "address_id"),
+		@Result(property = "proId", column = "pro_id"),
+		@Result(property = "recipientInfo", column = "address_id",
+			one = @One(
+					select = "com.mall.dao.RecipientInfoDao.selectByAddressId")
+		),
+		@Result(property = "proInfo", column = "pro_id",
+			one = @One(
+					select = "com.mall.dao.ProInfoDao.selectByProId")
+		)
+	})
+	public ArrayList<Order> selectAll();
+	
 	/**
 	 * 根据用户Id查询该用户的所有订单
 	 * @param userId
@@ -72,6 +93,14 @@ public interface OrderDao {
 	 * @param isSigned
 	 * @param orderNum
 	 */
-	@Update("update mall.order set is_signed = #{isSigned} where order_num = #{isSigned}")
+	@Update("update mall.order set is_signed = #{isSigned} where order_num = #{orderNum}")
 	public void updateIsSigned(Boolean isSigned, Integer orderNum);
+	
+	/**
+	 * 更新订单快递单号和快递公司
+	 * @param isSigned
+	 * @param orderNum
+	 */
+	@Update("update mall.order set exp_code = #{expCode}, express_num = #{expressNum} where order_num = #{orderNum}")
+	public void updateLogisticsInfo(String expCode, String expressNum, Integer orderNum);
 }
